@@ -2,41 +2,43 @@
 #include "ellipse.hpp"
 #include "line.hpp"
 
+#include <cmath>
+#include <fmt/core.h>
 #include <iostream>
 #include <numbers>
+#include <random>
 #include <time.h>
 #include <vector>
 
 using namespace curves::core;
 
-double generate_double()
+double generateDouble(double lower_bound = 0.1, double upper_bound = 10000.0)
 {
-    const long max_rand = 1000000L;
-    double lower_bound = 0;
-    double upper_bound = 100;
-
-    srandom(time(NULL));
-
-    return lower_bound + (upper_bound - lower_bound) * (random() % max_rand) / max_rand;
+    static std::random_device random_device;
+    static std::mt19937 random_number_generator(random_device());
+    std::uniform_real_distribution<double> distribution(lower_bound, upper_bound);
+    return distribution(random_number_generator);
 }
 
 int main()
 {
-    const int t = std::numbers::pi / 4;
+    const double t = M_PI / 4.0;
 
     std::vector<Line> random_lines;
     std::vector<Ellipse> random_ellipses;
 
-    std::cout << "For a bunch of random lines:\n" << std::endl;
+    fmt::print("For a bunch of random lines:\n");
     for (int i = 0; i < 10; i++) {
-        Point2D random_direction = {generate_double(), generate_double()};
+        Point2D random_direction{generateDouble(), generateDouble()};
         random_lines.push_back(Line(random_direction));
+        Point2D current_coords = random_lines[i].getCoords(t);
+        fmt::print("Point for {}: {}, {}\n", i, current_coords.x, current_coords.y);
     }
 
-    std::cout << "For a bunch of random lines:\n" << std::endl;
+    fmt::print("For a bunch of random lines:\n");
     for (int i = 0; i < 10; i++) {
-        double random_radius_x = generate_double();
-        double random_radius_y = generate_double();
+        double random_radius_x = generateDouble();
+        double random_radius_y = generateDouble();
         random_ellipses.push_back(Ellipse(random_radius_x, random_radius_y));
     }
 

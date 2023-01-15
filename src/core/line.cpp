@@ -3,7 +3,7 @@
 
 namespace curves::core
 {
-Line::Line(Point2D direction)
+Line::Line(Point2D direction) // TODO: add starting point
     : direction(std::move(direction))
 {
 }
