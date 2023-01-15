@@ -1,17 +1,24 @@
 #include "ellipse.hpp"
 
+#include <cmath>
+
 namespace curves::core
 {
-std::pair<int, int> Ellipse::return_coords(int t)
+Ellipse::Ellipse(double radius_x, double radius_y)
+    : radius_x(radius_x)
+    , radius_y(radius_y)
 {
-    int x = params_.first * cos(t);
-    int y = params_.second * sin(t);
-    return std::make_pair(x, y);
-};
-std::pair<int, int> Ellipse::return_derivative(int t)
+}
+Point2D Ellipse::getCoords(double t)
 {
-    int x = -params_.first * sin(t);
-    int y = -params_.second * cos(t);
-    return std::make_pair(x, y);
-};
+    double x = radius_x * std::cos(t);
+    double y = radius_y * std::sin(t);
+    return Point2D{x, y};
+}
+Point2D Ellipse::getDerivative(double t)
+{
+    double x = -radius_x * std::sin(t);
+    double y = radius_y * std::cos(t);
+    return Point2D{x, y};
+}
 } // namespace curves::core

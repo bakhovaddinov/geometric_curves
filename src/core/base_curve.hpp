@@ -1,14 +1,20 @@
 #pragma once
 
-#include <vector>
 namespace curves::core
 {
+struct Point2D {
+    double x;
+    double y;
+};
+
+Point2D operator*(Point2D point, double t);
+bool operator==(const Point2D &p1, const Point2D &p2);
+
 class BaseCurve
 {
   public:
-    virtual std::pair<int, int> return_coords(int t) = 0;
-    virtual std::pair<int, int> return_derivative(int t) = 0;
-    std::pair<int, int> params_;
-    BaseCurve(std::pair<int, int> params);
+    virtual Point2D getCoords(double t) = 0;
+    virtual Point2D getDerivative(double t) = 0;
+    virtual ~BaseCurve() = default;
 };
 } // namespace curves::core

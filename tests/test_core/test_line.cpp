@@ -7,11 +7,13 @@ using namespace curves::core;
 
 TEST_CASE("Test Line")
 {
-    std::pair<int, int> direction;
-    direction.first = 2;
-    direction.second = 3;
-    Line new_line(direction);
-    SECTION("insert items")
+    Line new_line(Point2D{2, 3});
+    SECTION("Check coords")
     {
+        REQUIRE(new_line.getCoords(10) == Point2D{2 * 10, 3 * 10});
+    }
+    SECTION("Check derivative")
+    {
+        REQUIRE(new_line.getDerivative(10) == Point2D{2, 3});
     }
 }

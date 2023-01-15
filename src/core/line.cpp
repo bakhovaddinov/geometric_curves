@@ -1,17 +1,20 @@
 #include "line.hpp"
+#include "base_curve.hpp"
 
 namespace curves::core
 {
-std::pair<int, int> Line::return_coords(int t)
+Line::Line(Point2D direction)
+    : direction(std::move(direction))
 {
-    int x = params_.first * t;
-    int y = params_.second * t;
-    return std::make_pair(x, y);
-};
-std::pair<int, int> Line::return_derivative(int t)
+}
+
+Point2D Line::getCoords(double t)
 {
-    int x = params_.first;
-    int y = params_.second;
-    return std::make_pair(x, y);
-};
+    return direction * t;
+}
+
+Point2D Line::getDerivative(double)
+{
+    return direction;
+}
 } // namespace curves::core
