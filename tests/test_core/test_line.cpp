@@ -7,7 +7,7 @@ using namespace curves::core;
 
 TEST_CASE("Test Line")
 {
-    Line new_line(Point2D{2, 3});
+    Line new_line(Point2D{0, 0}, Point2D{2, 3});
     SECTION("Check coords")
     {
         REQUIRE(new_line.getCoords(10) == Point2D{2 * 10, 3 * 10});
